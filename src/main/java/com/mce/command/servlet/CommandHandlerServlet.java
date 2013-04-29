@@ -87,7 +87,7 @@ public abstract class CommandHandlerServlet extends McsFrameworkServlet
 
   private void initInterceptors()
   {
-    this.cInterceptors = new ArrayList();
+    this.cInterceptors = new ArrayList<CommandInterceptor>();
     String[] cis = getBeanInjector().getBeanNamesForType(CommandInterceptor.class);
     if ((cis != null) && (cis.length > 0)) {
       getLogger().info("Find CommandInterceptor[" + cis.length + "]");
@@ -138,7 +138,7 @@ public abstract class CommandHandlerServlet extends McsFrameworkServlet
     }
     catch (Exception eh)
     {
-      ResponsibleMessage localResponsibleMessage;
+      final ResponsibleMessage localResponsibleMessage;
       getLogger().trace(eh);
       return createErrorResponsibleMessage(500, eh.getMessage());
     }

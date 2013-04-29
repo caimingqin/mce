@@ -64,7 +64,7 @@ public class ApachCommonsUploadConvertor extends AbstractCommandConvertor {
 	public AbstractCommand createCommand(UploadFileMapper um) throws Exception {
 		InputStream is = um.commandTranslate;
 		CommandTranslate ct = (CommandTranslate) this.om.readValue(is, CommandTranslate.class);
-		Class cmdType = findCommand(ct.getCommandName());
+		Class<?> cmdType = findCommand(ct.getCommandName());
 		if (!AbstractCommand.class.isAssignableFrom(cmdType)) {
 			this.logger.error("Not Instanceof MultipartCommand object");
 			throw new CommandHandleException(1001, "Not Instanceof MultipartCommand object");
@@ -72,10 +72,10 @@ public class ApachCommonsUploadConvertor extends AbstractCommandConvertor {
 		Command cmd = (Command) this.om.readValue(ct.getContents(), cmdType);
 		AbstractCommand mCmd = (AbstractCommand) cmd;
 		mCmd.init(um.uploadFiles);
-		Map maps = um.getContextParameters();
+		Map<?, ?> maps = um.getContextParameters();
 		if (!maps.isEmpty()) {
-			Set key = maps.keySet();
-			Iterator ikey = key.iterator();
+			Set<?> key = maps.keySet();
+			Iterator<?> ikey = key.iterator();
 			while (ikey.hasNext()) {
 				String next = (String) ikey.next();
 				String value = (String) maps.get(next);
@@ -88,7 +88,7 @@ public class ApachCommonsUploadConvertor extends AbstractCommandConvertor {
 	public UploadFileMapper createUploadFileMapper(HttpServletRequest req, ServletFileUpload upload)
 			throws Exception {
 		List<FileItem> items = upload.parseRequest(req);
-		List uFiles = new ArrayList();
+		List<UploadFile> uFiles = new ArrayList();
 		InputStream cmdIns = null;
 		Map params = new HashMap();
 		for (FileItem fi : items) {

@@ -25,7 +25,7 @@ public class EventCommandHandlerServlet extends CommandHandlerServlet
 
   private DomainEventProcessorBootstrap createEventProcessorBoostrap(ServletConfig sc)
   {
-    String scoreSzie = sc.getInitParameter("depCore");
+    String scoreSzie = sc.getInitParameter(EVENT_PROCESSOR_CORE);
     return StringUtils.isNull(scoreSzie) ? new DomainEventProcessorBootstrap(getBeanInjector()) : new DomainEventProcessorBootstrap(Integer.parseInt(scoreSzie));
   }
 
