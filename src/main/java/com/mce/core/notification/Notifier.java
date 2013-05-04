@@ -13,7 +13,3 @@ public abstract interface Notifier
   public abstract boolean isRunning();
 }
 
-/* Location:           E:\Zip2\mresouce\wmcore-0.6.9.jar
- * Qualified Name:     com.mce.core.notification.Notifier
- * JD-Core Version:    0.6.2
- */
